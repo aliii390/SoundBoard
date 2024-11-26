@@ -25,8 +25,10 @@ function handleKeyDownAudio(event) {
     let key = document.querySelector(`.key[data-key="${event.keyCode}"]`);
     key.classList.add("playing");
 
+      let test = Date.now();
+
     if (recording === true) {
-      notesEnregistrer.push(event.keyCode);
+      notesEnregistrer.push(event.keyCode, `Time: ${Date.now() + test} ms`);  //rajoute de date.now pour faire un test
       console.log(notesEnregistrer);
     }
   }
@@ -41,9 +43,10 @@ function handleKeyup(event) {
   if (event.keyCode !== 82) {
     key.classList.remove("playing");
   }
+
 }
 
-let count = 0;
+// let count = 0;
 
 function handleKeyDownRecord(event) {
   if (event.keyCode === 82) {
@@ -53,6 +56,10 @@ function handleKeyDownRecord(event) {
     notesEnregistrer = []
   }
 }
+
+
+
+
 
 // function handleKeyDownPlay(event) {
 //   if (event.keyCode == "80") {
