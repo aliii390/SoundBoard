@@ -5,6 +5,10 @@
 let recording = false;
 let playing = false;
 let notesEnregistrer = [];
+ let lettreR ;    //j'appelle la variable ici pour l'utiliser dans cette fonction handleKeyDownRecord
+
+
+
 
 window.addEventListener("keydown", handleKeyDownAudio);
 window.addEventListener("keyup", handleKeyup);
@@ -25,11 +29,11 @@ function handleKeyDownAudio(event) {
     key.classList.add("playing");
 
       let test = Date.now();
-      console.log(test);
+      // console.log(test);
       
 
     if (recording === true) {
-      notesEnregistrer.push( {"key": event.keyCode ,  "time": test});  //rajoute  d'un objet
+      notesEnregistrer.push( {"key": event.keyCode , "time": test - lettreR} );  //rajoute  d'un objet      
       console.log(notesEnregistrer);
     }
   }
@@ -55,6 +59,8 @@ function handleKeyDownRecord(event) {
     key.classList.toggle("playing");
     recording = !recording;
     notesEnregistrer = []
+    lettreR = Date.now();  // je rappelle la variable que j'ai appeller en haut 
+    
   }
 }
 
