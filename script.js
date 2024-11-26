@@ -4,7 +4,6 @@
 
 let recording = false;
 let playing = false;
-
 let notesEnregistrer = [];
 
 window.addEventListener("keydown", handleKeyDownAudio);
@@ -26,9 +25,11 @@ function handleKeyDownAudio(event) {
     key.classList.add("playing");
 
       let test = Date.now();
+      console.log(test);
+      
 
     if (recording === true) {
-      notesEnregistrer.push(event.keyCode, `Time: ${Date.now() + test} ms`);  //rajoute de date.now pour faire un test
+      notesEnregistrer.push( {"key": event.keyCode ,  "time": test});  //rajoute  d'un objet
       console.log(notesEnregistrer);
     }
   }
