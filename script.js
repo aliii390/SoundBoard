@@ -13,7 +13,7 @@ let notesEnregistrer = [];
 window.addEventListener("keydown", handleKeyDownAudio);
 window.addEventListener("keyup", handleKeyup);
 window.addEventListener("keydown", handleKeyDownRecord);
-// window.addEventListener("keydown", handleKeyDownPlay);
+window.addEventListener("keydown", handleKeyDownPlay);
 
 function handleKeyDownAudio(event) {
   if (event.repeat) {
@@ -33,7 +33,7 @@ function handleKeyDownAudio(event) {
       
 
     if (recording === true) {
-      notesEnregistrer.push( {"key": event.keyCode , "time": test - lettreR} );  //rajoute  d'un objet      
+      notesEnregistrer.push( {"key": event.keyCode , "time": test - lettreR} );  //rajout  d'un objet      
       console.log(notesEnregistrer);
     }
   }
@@ -51,15 +51,18 @@ function handleKeyup(event) {
 
 }
 
-// let count = 0;
+
 
 function handleKeyDownRecord(event) {
   if (event.keyCode === 82) {
     let key = document.querySelector(`.key[data-key="82"]`);
     key.classList.toggle("playing");
     recording = !recording;
-    notesEnregistrer = []
-    lettreR = Date.now();  // je rappelle la variable que j'ai appeller en haut 
+    if( recording === true){
+      notesEnregistrer = [];
+      lettreR = Date.now();  // je rappelle la variable que j'ai appeller en haut 
+    }
+   
     
   }
 }
@@ -68,12 +71,32 @@ function handleKeyDownRecord(event) {
 
 
 
-// function handleKeyDownPlay(event) {
-//   if (event.keyCode == "80") {
-//     let key = document.querySelector(`.key[data-key="80"]`);
-//     key.classList.toggle("playing");
-//     setTimeout(() => {
-//       key.classList.remove("playing");
-//     }, 200);
-//   }
-// }
+function handleKeyDownPlay(event) {
+  if (event.keyCode === 80) {
+    console.log("on appuie sur p");
+    console.log(notesEnregistrer);
+    
+    
+    let key = document.querySelector(`.key[data-key="80"]`);
+    key.classList.toggle("playing");
+    playing = !playing;
+
+    // setTimeout(() => {
+    //   key.classList.remove("playing");
+    // }, 200);
+    
+    notesEnregistrer.forEach((son) => {
+      let { key, time } = son; // Déstructuration pour récupérer nomSon et delay
+      console.log("touche = "+ key);
+      
+      let audioo = document.querySelector(`audio[data-key="${key}"]`)
+      console.log(audioo);
+      
+      console.log(`Nom du son : ${key}, Délai : ${time}`);
+       setTimeout(() => {
+      audioo.play();
+    }, time)
+    });
+    
+  }
+}
